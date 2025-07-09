@@ -1,0 +1,15 @@
+# Folder hasil deteksi & upload gambar
+runs/
+static/uploads/
+
+# File model berat
+*.pt
+
+# Virtual environment (jika ada)
+yolo-env/
+venv/
+.env
+
+# Cache Python
+_pycache_/
+*.pyc

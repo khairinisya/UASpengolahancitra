@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hasil Deteksi YOLO12n</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+      min-height: 100vh;
+      padding: 30px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card {
+      background-color: #ffffffee;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      max-width: 700px;
+      width: 100%;
+      text-align: center;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card h1 {
+      font-size: 2rem;
+      color: #6a1b9a;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 25px;
+    }
+
+    img.detected {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+      margin-bottom: 25px;
+      transition: transform 0.3s ease;
+    }
+
+    img.detected:hover {
+      transform: scale(1.02);
+    }
+
+    .labels {
+      margin: 15px 0 30px;
+      text-align: left;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .labels h3 {
+      color: #d81b60;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    .labels ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .labels li {
+      background: #fce4ec;
+      padding: 10px 15px;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+      color: #880e4f;
+    }
+
+    a.button {
+      display: inline-block;
+      background: linear-gradient(to right, #ff758c, #ff7eb3);
+      color: white;
+      padding: 16px 40px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.2rem;
+      letter-spacing: 0.5px;
+      box-shadow: 0 10px 20px rgba(255, 94, 98, 0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      margin-top: 30px;
+    }
+
+    a.button:hover {
+      transform: scale(1.07);
+      box-shadow: 0 12px 28px rgba(255, 94, 98, 0.5);
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        padding: 25px 15px;
+      }
+
+      img.detected {
+        max-width: 100%;
+      }
+
+      .labels {
+        padding: 0 5px;
+      }
+
+      a.button {
+        font-size: 1.05rem;
+        padding: 14px 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Hasil Deteksi YOLO12n</h1>
+    <p>Berikut gambar dan objek yang berhasil dideteksi:</p>
+
+    <!-- Gambar hasil deteksi -->
+    <img src="{{ url_for('static', filename='uploads/' + result_image) }}" class="detected" alt="Hasil Deteksi">
+
+    <!-- Label objek (jika tersedia dari backend Flask) -->
+    {% if labels %}
+    <div class="labels">
+      <h3>Objek Terdeteksi:</h3>
+      <ul>
+        {% for label in labels %}
+          <li>{{ label }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <!-- Tombol “Deteksi Gambar Lain” ukuran sedang -->
+    <a href="/" class="button">🔁 Deteksi Gambar Lain</a>
+  </div>
+</body>
+</html>

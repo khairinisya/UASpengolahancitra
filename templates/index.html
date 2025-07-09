@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>YOLO12n Object Detection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 25px;
+      padding: 50px 40px;
+      width: 380px;
+      text-align: center;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+      animation: fadeIn 0.8s ease;
+    }
+
+    h2 {
+      font-size: 1.9rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .upload-icon {
+      font-size: 50px;
+      margin-bottom: 20px;
+      color: #ffffffcc;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    label.file-label {
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 15px;
+      padding: 15px;
+      cursor: pointer;
+      font-weight: 500;
+      color: #fff;
+      transition: background 0.3s ease;
+    }
+
+    label.file-label:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    button {
+      background-color: #6c63ff;
+      border: none;
+      padding: 14px;
+      border-radius: 15px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(108, 99, 255, 0.5);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #5848c2;
+      transform: scale(1.05);
+    }
+
+    .camera-link {
+      margin-top: 20px;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media(max-width: 420px) {
+      .container {
+        width: 90vw;
+        padding: 30px 20px;
+      }
+
+      h2 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="upload-icon">📷</div>
+    <h2>Deteksi Objek dengan YOLOv12</h2>
+    <form action="/detect" method="POST" enctype="multipart/form-data">
+      <label for="file-upload" class="file-label">📁 Pilih Gambar</label>
+      <input id="file-upload" type="file" name="image" accept="image/*" required />
+      <button type="submit">🔍 Deteksi Sekarang</button>
+    </form>
+
+    <div class="camera-link">
+      <a href="/camera">
+        <button type="button">🎥 Buka Kamera</button>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Tampilkan nama file saat dipilih
+    const fileInput = document.getElementById("file-upload");
+    const label = document.querySelector(".file-label");
+
+    fileInput.addEventListener("change", function () {
+      if (fileInput.files.length > 0) {
+        label.textContent = "📁 " + fileInput.files[0].name;
+      }
+    });
+  </script>
+</body>
+</html>
